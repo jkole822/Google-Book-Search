@@ -9,4 +9,4 @@ const bookSchema = new Schema({
 	link: String,
 });
 
-mongoose.model(Book, bookSchema);
+mongoose.model("Book", bookSchema);

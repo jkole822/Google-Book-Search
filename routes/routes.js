@@ -24,14 +24,14 @@ router.post("/api/books", async (req, res) => {
 	}
 });
 
-router.delete('/api/delete/:id', (req, res) => {
-    try {
-        const book = await Books.findByIdAndDelete(req.params.id)
+router.delete("/api/delete/:id", async (req, res) => {
+	try {
+		const book = await Books.findByIdAndDelete(req.params.id);
 
-        res.json(book)
-    } catch (e) {
-        res.status(500).send(e)
-    }
-})
+		res.json(book);
+	} catch (e) {
+		res.status(500).send(e);
+	}
+});
 
 module.exports = router;
