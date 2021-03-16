@@ -1,8 +1,26 @@
 const express = require("express");
+const axios = require("axios");
 const { model } = require("mongoose");
-
+const keys = require("../config/keys");
 const router = express.Router();
 const Books = model("Book");
+
+router.get("/api/search/:terms", async (req, res) => {
+	try {
+		const baseURL = "https://www.googleapis.com/books/v1/volumes?q=";
+		const searchTerms = req.params.terms.replace(" ", "+");
+		const URL =
+			baseURL +
+			searchTerms +
+			"&maxResults=20&printType=books&key=" +
+			keys.googleAPIKey;
+
+		const results = await axios.get(URL);
+		res.json(results.data);
+	} catch (e) {
+		res.status(500).send(e);
+	}
+});
 
 router.get("/api/books", async (req, res) => {
 	try {
