@@ -1,13 +1,18 @@
 import React from "react";
 import Container from "@material-ui/core/Container";
-import Typography from "@material-ui/core/Typography";
+import InputLabel from "@material-ui/core/InputLabel";
+import OutlinedInput from "@material-ui/core/OutlinedInput";
+import FormControl from "@material-ui/core/FormControl";
 
-const Search = () => {
+const Saved = () => {
 	return (
 		<Container>
-			<Typography>Search</Typography>
+			<FormControl fullWidth variant="outlined">
+				<InputLabel htmlFor="outlined-adornment-amount">Amount</InputLabel>
+				<OutlinedInput id="outlined-adornment-amount" labelWidth={60} />
+			</FormControl>
 		</Container>
 	);
 };
 
-export default Search;
+export default Saved;
