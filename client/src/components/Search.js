@@ -26,6 +26,13 @@ const useStyles = makeStyles({
 	clearBox: {
 		clear: "both",
 	},
+	resultBox: {
+		border: "3px solid black",
+		borderRadius: 7,
+	},
+	resultsHeader: {
+		marginBottom: 15,
+	},
 });
 
 const Saved = () => {
@@ -88,7 +95,16 @@ const Saved = () => {
 				</Button>
 				<Box className={classes.clearBox}></Box>
 			</Box>
-			{renderResults()}
+			<Box my={5} p={5} className={classes.resultBox}>
+				<Typography
+					variant="h6"
+					component="h3"
+					className={classes.resultsHeader}
+				>
+					Results
+				</Typography>
+				{renderResults()}
+			</Box>
 		</Container>
 	);
 };
