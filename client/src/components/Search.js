@@ -21,8 +21,18 @@ const Saved = () => {
 	const renderResults = () => {
 		if (results.length) {
 			return results.map(result => {
-				console.log(result.volumeInfo);
-				return <Result key={result.id} info={result.volumeInfo} />;
+				return (
+					<Result
+						key={result.id}
+						info={result.volumeInfo}
+						image={
+							result.volumeInfo.imageLinks
+								? result.volumeInfo.imageLinks.thumbnail
+								: null
+						}
+						link={result.volumeInfo.previewLink}
+					/>
+				);
 			});
 		}
 		return null;

@@ -7,8 +7,11 @@ import { useTheme, makeStyles } from "@material-ui/core/styles";
 import axios from "axios";
 
 const Result = ({
-	info: { authors, title, subtitle, description, imageLinks, previewLink },
+	info: { authors, title, subtitle, description },
+	image,
+	link,
 }) => {
+	console.log(image, link);
 	const useStyles = makeStyles({
 		viewButton: {
 			marginRight: 5,
@@ -27,8 +30,8 @@ const Result = ({
 			title,
 			subtitle,
 			description,
-			image: imageLinks.thumbnail,
-			link: previewLink,
+			image,
+			link,
 		});
 	};
 
@@ -39,25 +42,25 @@ const Result = ({
 		return authors;
 	};
 
-	const renderGrid = (imageLinks, description) => {
-		if (imageLinks && description) {
+	const renderGrid = (image, description) => {
+		if (image && description) {
 			return (
 				<>
 					<Grid item xs={12} sm={3} align={matches ? "center" : "left"}>
-						<img src={imageLinks.thumbnail} />
+						<img src={image} />
 					</Grid>
 					<Grid item xs={12} sm={9}>
 						<Typography>{description}</Typography>
 					</Grid>
 				</>
 			);
-		} else if (imageLinks && !description) {
+		} else if (image && !description) {
 			return (
 				<Grid item>
-					<img src={imageLinks.thumbnail} />
+					<img src={image} />
 				</Grid>
 			);
-		} else if (!imageLinks && description) {
+		} else if (!image && description) {
 			return (
 				<Grid item>
 					<Typography>{description}</Typography>
@@ -79,7 +82,7 @@ const Result = ({
 						className={classes.viewButton}
 						variant="contained"
 						color="primary"
-						href={previewLink}
+						href={link}
 					>
 						View
 					</Button>
@@ -98,7 +101,7 @@ const Result = ({
 				<Typography>Written by {renderAuthors(authors)}</Typography>
 			) : null}
 			<Grid container spacing={5}>
-				{renderGrid(imageLinks, description)}
+				{renderGrid(image, description)}
 			</Grid>
 		</>
 	);
