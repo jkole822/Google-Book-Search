@@ -1,12 +1,22 @@
 import React from "react";
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
+import Button from "@material-ui/core/Button";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
-import { useTheme } from "@material-ui/core/styles";
+import { useTheme, makeStyles } from "@material-ui/core/styles";
 
 const Result = ({
-	info: { authors, title, subtitle, description, imageLinks, links },
+	info: { authors, title, subtitle, description, imageLinks, previewLink },
 }) => {
+	const useStyles = makeStyles({
+		viewButton: {
+			marginRight: 5,
+		},
+		saveButton: {
+			marginLeft: 5,
+		},
+	});
+	const classes = useStyles();
 	const theme = useTheme();
 	const matches = useMediaQuery(theme.breakpoints.down("xs"));
 
@@ -45,9 +55,31 @@ const Result = ({
 
 		return null;
 	};
+
 	return (
 		<>
-			<Typography>{title}</Typography>
+			<Grid container justify="space-between">
+				<Grid item>
+					<Typography>{title}</Typography>
+				</Grid>
+				<Grid item>
+					<Button
+						className={classes.viewButton}
+						variant="contained"
+						color="primary"
+						href={previewLink}
+					>
+						View
+					</Button>
+					<Button
+						className={classes.saveButton}
+						variant="contained"
+						color="primary"
+					>
+						Save
+					</Button>
+				</Grid>
+			</Grid>
 			<Typography>{subtitle}</Typography>
 			{authors ? (
 				<Typography>Written by {renderAuthors(authors)}</Typography>
