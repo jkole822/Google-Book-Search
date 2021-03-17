@@ -97,7 +97,7 @@ const Saved = () => {
 			</Box>
 			<Box my={5} p={5} className={classes.resultBox}>
 				<Typography
-					variant="h6"
+					variant="h5"
 					component="h3"
 					className={classes.resultsHeader}
 				>

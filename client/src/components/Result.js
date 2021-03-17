@@ -1,9 +1,9 @@
 import React from "react";
 import { useLocation } from "react-router-dom";
+import Box from "@material-ui/core/Box";
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
-import useMediaQuery from "@material-ui/core/useMediaQuery";
 import { useTheme, makeStyles } from "@material-ui/core/styles";
 import axios from "axios";
 
@@ -13,6 +13,22 @@ const useStyles = makeStyles({
 	},
 	saveButton: {
 		marginLeft: 5,
+	},
+	resultBox: {
+		border: "3px solid black",
+		borderRadius: 7,
+	},
+	description: {
+		lineHeight: 1.6,
+	},
+	title: {
+		marginBottom: 20,
+	},
+	subtitle: {
+		marginBottom: 10,
+	},
+	authors: {
+		marginBottom: 20,
 	},
 });
 
@@ -24,8 +40,6 @@ const Result = ({
 	handleDelete,
 }) => {
 	const classes = useStyles();
-	const theme = useTheme();
-	const matches = useMediaQuery(theme.breakpoints.down("xs"));
 
 	const location = useLocation();
 
@@ -51,11 +65,13 @@ const Result = ({
 		if (image && description) {
 			return (
 				<>
-					<Grid item xs={12} sm={3} align={matches ? "center" : "left"}>
+					<Grid item xs={12} sm={3} align="center">
 						<img src={image} />
 					</Grid>
 					<Grid item xs={12} sm={9}>
-						<Typography>{description}</Typography>
+						<Typography align="justify" className={classes.description}>
+							{description}
+						</Typography>
 					</Grid>
 				</>
 			);
@@ -68,7 +84,9 @@ const Result = ({
 		} else if (!image && description) {
 			return (
 				<Grid item>
-					<Typography>{description}</Typography>
+					<Typography variant="body1" className={classes.description}>
+						{description}
+					</Typography>
 				</Grid>
 			);
 		}
@@ -77,10 +95,12 @@ const Result = ({
 	};
 
 	return (
-		<>
-			<Grid container justify="space-between">
+		<Box className={classes.resultBox} p={5} mb={5}>
+			<Grid container justify="space-between" className={classes.title}>
 				<Grid item>
-					<Typography>{title}</Typography>
+					<Typography variant="h6" component="h4">
+						{title}
+					</Typography>
 				</Grid>
 				<Grid item>
 					<Button
@@ -112,14 +132,22 @@ const Result = ({
 					)}
 				</Grid>
 			</Grid>
-			<Typography>{subtitle}</Typography>
+			<Typography
+				variant="subtitle2"
+				component="h5"
+				className={classes.subtitle}
+			>
+				{subtitle}
+			</Typography>
 			{authors ? (
-				<Typography>Written by {renderAuthors(authors)}</Typography>
+				<Typography variant="body2" className={classes.authors}>
+					Written by {renderAuthors(authors)}
+				</Typography>
 			) : null}
-			<Grid container spacing={5}>
+			<Grid container spacing={5} alignItems="center">
 				{renderGrid(image, description)}
 			</Grid>
-		</>
+		</Box>
 	);
 };
 
