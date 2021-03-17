@@ -7,6 +7,15 @@ import useMediaQuery from "@material-ui/core/useMediaQuery";
 import { useTheme, makeStyles } from "@material-ui/core/styles";
 import axios from "axios";
 
+const useStyles = makeStyles({
+	viewButton: {
+		marginRight: 5,
+	},
+	saveButton: {
+		marginLeft: 5,
+	},
+});
+
 const Result = ({
 	info: { authors, title, subtitle, description },
 	id,
@@ -14,14 +23,6 @@ const Result = ({
 	link,
 	handleDelete,
 }) => {
-	const useStyles = makeStyles({
-		viewButton: {
-			marginRight: 5,
-		},
-		saveButton: {
-			marginLeft: 5,
-		},
-	});
 	const classes = useStyles();
 	const theme = useTheme();
 	const matches = useMediaQuery(theme.breakpoints.down("xs"));

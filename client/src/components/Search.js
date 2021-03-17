@@ -1,16 +1,38 @@
 import React, { useState } from "react";
-import axios from "axios";
+import Box from "@material-ui/core/Box";
 import Container from "@material-ui/core/Container";
 import InputLabel from "@material-ui/core/InputLabel";
 import OutlinedInput from "@material-ui/core/OutlinedInput";
 import FormControl from "@material-ui/core/FormControl";
 import Button from "@material-ui/core/Button";
+import Typography from "@material-ui/core/Typography";
+import { makeStyles } from "@material-ui/core/styles";
+import axios from "axios";
 
 import Result from "./Result";
+
+const useStyles = makeStyles({
+	search: {
+		border: "3px solid black",
+		borderRadius: 7,
+	},
+	searchHeader: {
+		marginBottom: 30,
+	},
+	searchButton: {
+		marginTop: 30,
+		float: "right",
+	},
+	clearBox: {
+		clear: "both",
+	},
+});
 
 const Saved = () => {
 	const [terms, setTerms] = useState("");
 	const [results, setResults] = useState([]);
+
+	const classes = useStyles();
 
 	const performQuery = async () => {
 		const res = await axios.get(`/api/search/${terms}`);
@@ -40,22 +62,32 @@ const Saved = () => {
 
 	return (
 		<Container>
-			<FormControl fullWidth variant="outlined">
-				<InputLabel htmlFor="outlined-adornment-amount">Amount</InputLabel>
-				<OutlinedInput
-					id="outlined-adornment-amount"
-					labelWidth={60}
-					onChange={({ target }) => setTerms(target.value)}
-					value={terms}
-				/>
-			</FormControl>
-			<Button
-				variant="contained"
-				color="primary"
-				onClick={() => performQuery(terms)}
-			>
-				Search
-			</Button>
+			<Box mt={20} p={8} className={classes.search}>
+				<Typography
+					variant="h4"
+					component="h2"
+					className={classes.searchHeader}
+				>
+					Book Search
+				</Typography>
+				<FormControl fullWidth variant="outlined">
+					<InputLabel htmlFor="outlined-adornment-amount">Book</InputLabel>
+					<OutlinedInput
+						labelWidth={35}
+						onChange={({ target }) => setTerms(target.value)}
+						value={terms}
+					/>
+				</FormControl>
+				<Button
+					className={classes.searchButton}
+					variant="contained"
+					color="primary"
+					onClick={() => performQuery(terms)}
+				>
+					Search
+				</Button>
+				<Box className={classes.clearBox}></Box>
+			</Box>
 			{renderResults()}
 		</Container>
 	);
