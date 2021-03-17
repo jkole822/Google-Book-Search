@@ -1,4 +1,5 @@
 import React from "react";
+import { useLocation } from "react-router-dom";
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
@@ -8,10 +9,11 @@ import axios from "axios";
 
 const Result = ({
 	info: { authors, title, subtitle, description },
+	id,
 	image,
 	link,
+	handleDelete,
 }) => {
-	console.log(image, link);
 	const useStyles = makeStyles({
 		viewButton: {
 			marginRight: 5,
@@ -23,6 +25,8 @@ const Result = ({
 	const classes = useStyles();
 	const theme = useTheme();
 	const matches = useMediaQuery(theme.breakpoints.down("xs"));
+
+	const location = useLocation();
 
 	const handleSave = () => {
 		axios.post("/api/books", {
@@ -86,14 +90,25 @@ const Result = ({
 					>
 						View
 					</Button>
-					<Button
-						className={classes.saveButton}
-						variant="contained"
-						color="primary"
-						onClick={handleSave}
-					>
-						Save
-					</Button>
+					{location.pathname === "/" ? (
+						<Button
+							className={classes.saveButton}
+							variant="contained"
+							color="primary"
+							onClick={handleSave}
+						>
+							Save
+						</Button>
+					) : (
+						<Button
+							className={classes.saveButton}
+							variant="contained"
+							color="primary"
+							onClick={() => handleDelete(id)}
+						>
+							Delete
+						</Button>
+					)}
 				</Grid>
 			</Grid>
 			<Typography>{subtitle}</Typography>

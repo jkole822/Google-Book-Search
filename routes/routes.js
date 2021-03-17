@@ -42,7 +42,7 @@ router.post("/api/books", async (req, res) => {
 	}
 });
 
-router.delete("/api/delete/:id", async (req, res) => {
+router.delete("/api/books/:id", async (req, res) => {
 	try {
 		const book = await Books.findByIdAndDelete(req.params.id);
 

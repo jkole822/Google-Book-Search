@@ -18,16 +18,22 @@ const Saved = () => {
 		setBooks(fetchedBooks.data);
 	};
 
+	const handleDelete = async id => {
+		await axios.delete(`/api/books/${id}`);
+		fetchSavedBooks();
+	};
+
 	const renderResults = () => {
 		if (books.length) {
 			return books.map(result => {
-				console.log(result);
 				return (
 					<Result
 						key={result._id}
 						info={result}
 						image={result.image}
 						link={result.link}
+						id={result._id}
+						handleDelete={handleDelete}
 					/>
 				);
 			});
