@@ -1,10 +1,15 @@
 import React from "react";
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
+import useMediaQuery from "@material-ui/core/useMediaQuery";
+import { useTheme } from "@material-ui/core/styles";
 
 const Result = ({
 	info: { authors, title, subtitle, description, imageLinks, links },
 }) => {
+	const theme = useTheme();
+	const matches = useMediaQuery(theme.breakpoints.down("xs"));
+
 	const renderAuthors = authors => {
 		if (authors.length > 1) {
 			return authors.join(", ");
@@ -16,7 +21,7 @@ const Result = ({
 		if (imageLinks && description) {
 			return (
 				<>
-					<Grid item xs={12} sm={3}>
+					<Grid item xs={12} sm={3} align={matches ? "center" : "left"}>
 						<img src={imageLinks.thumbnail} />
 					</Grid>
 					<Grid item xs={12} sm={9}>
