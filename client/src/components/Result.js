@@ -4,6 +4,7 @@ import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 import { useTheme, makeStyles } from "@material-ui/core/styles";
+import axios from "axios";
 
 const Result = ({
 	info: { authors, title, subtitle, description, imageLinks, previewLink },
@@ -19,6 +20,17 @@ const Result = ({
 	const classes = useStyles();
 	const theme = useTheme();
 	const matches = useMediaQuery(theme.breakpoints.down("xs"));
+
+	const handleSave = () => {
+		axios.post("/api/books", {
+			authors,
+			title,
+			subtitle,
+			description,
+			image: imageLinks.thumbnail,
+			link: previewLink,
+		});
+	};
 
 	const renderAuthors = authors => {
 		if (authors.length > 1) {
@@ -75,6 +87,7 @@ const Result = ({
 						className={classes.saveButton}
 						variant="contained"
 						color="primary"
+						onClick={handleSave}
 					>
 						Save
 					</Button>
