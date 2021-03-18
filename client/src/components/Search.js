@@ -95,16 +95,18 @@ const Saved = () => {
 				</Button>
 				<Box className={classes.clearBox}></Box>
 			</Box>
-			<Box my={5} p={5} className={classes.resultBox}>
-				<Typography
-					variant="h5"
-					component="h3"
-					className={classes.resultsHeader}
-				>
-					Results
-				</Typography>
-				{renderResults()}
-			</Box>
+			{Object.keys(results).length ? (
+				<Box my={5} p={5} className={classes.resultBox}>
+					<Typography
+						variant="h5"
+						component="h3"
+						className={classes.resultsHeader}
+					>
+						Results
+					</Typography>
+					{renderResults()}
+				</Box>
+			) : null}
 		</Container>
 	);
 };
