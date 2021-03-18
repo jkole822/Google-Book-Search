@@ -69,7 +69,7 @@ const Saved = () => {
 
 	return (
 		<Container>
-			<Box mt={20} p={8} className={classes.search}>
+			<Box my={10} p={8} className={classes.search}>
 				<Typography
 					variant="h4"
 					component="h2"
