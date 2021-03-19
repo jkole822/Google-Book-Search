@@ -4,7 +4,9 @@ import Box from "@material-ui/core/Box";
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
-import { useTheme, makeStyles } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
+import { indigo } from "@material-ui/core/colors";
+
 import axios from "axios";
 
 const useStyles = makeStyles({
@@ -15,8 +17,8 @@ const useStyles = makeStyles({
 		marginLeft: 5,
 	},
 	resultBox: {
-		border: "3px solid black",
 		borderRadius: 7,
+		backgroundColor: indigo[100],
 	},
 	description: {
 		lineHeight: 1.6,

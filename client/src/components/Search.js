@@ -1,22 +1,18 @@
 import React, { useState } from "react";
 import Box from "@material-ui/core/Box";
 import Container from "@material-ui/core/Container";
-import InputLabel from "@material-ui/core/InputLabel";
-import OutlinedInput from "@material-ui/core/OutlinedInput";
-import FormControl from "@material-ui/core/FormControl";
+import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
+import { indigo } from "@material-ui/core/colors";
 import axios from "axios";
 
 import Result from "./Result";
 
-const useStyles = makeStyles({
-	search: {
-		border: "3px solid black",
-		borderRadius: 7,
-	},
+const useStyles = makeStyles(theme => ({
 	searchHeader: {
+		color: indigo[700],
 		marginBottom: 30,
 	},
 	searchButton: {
@@ -27,13 +23,14 @@ const useStyles = makeStyles({
 		clear: "both",
 	},
 	resultBox: {
-		border: "3px solid black",
+		color: indigo[900],
 		borderRadius: 7,
+		backgroundColor: "",
 	},
 	resultsHeader: {
 		marginBottom: 15,
 	},
-});
+}));
 
 const Saved = () => {
 	const [terms, setTerms] = useState("");
@@ -43,8 +40,8 @@ const Saved = () => {
 
 	const performQuery = async () => {
 		const res = await axios.get(`/api/search/${terms}`);
-		console.log(res);
 		setResults(res.data.items);
+		setTerms("");
 	};
 
 	const renderResults = () => {
@@ -67,9 +64,15 @@ const Saved = () => {
 		return null;
 	};
 
+	const handleSubmit = e => {
+		e.preventDefault();
+
+		performQuery(terms);
+	};
+
 	return (
 		<Container>
-			<Box my={10} p={8} className={classes.search}>
+			<Box my={10} p={8}>
 				<Typography
 					variant="h4"
 					component="h2"
@@ -77,14 +80,14 @@ const Saved = () => {
 				>
 					Book Search
 				</Typography>
-				<FormControl fullWidth variant="outlined">
-					<InputLabel htmlFor="outlined-adornment-amount">Book</InputLabel>
-					<OutlinedInput
-						labelWidth={35}
+				<form onSubmit={handleSubmit}>
+					<TextField
+						fullWidth
+						label="Books"
 						onChange={({ target }) => setTerms(target.value)}
 						value={terms}
 					/>
-				</FormControl>
+				</form>
 				<Button
 					className={classes.searchButton}
 					variant="contained"
@@ -101,6 +104,7 @@ const Saved = () => {
 						variant="h5"
 						component="h3"
 						className={classes.resultsHeader}
+						align="center"
 					>
 						Results
 					</Typography>

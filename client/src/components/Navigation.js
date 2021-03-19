@@ -5,6 +5,7 @@ import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
+import { indigo, cyan } from "@material-ui/core/colors";
 
 const useStyles = makeStyles(theme => ({
 	root: {
@@ -18,7 +19,7 @@ const useStyles = makeStyles(theme => ({
 	},
 	navLinks: {
 		fontFamily: "Roboto, sans-serif",
-		color: "rgb(250, 250, 250)",
+		color: indigo[50],
 		textDecoration: "none",
 		textTransform: "uppercase",
 		letterSpacing: "0.05em",
@@ -40,8 +41,8 @@ const Navigation = () => {
 							to="/saved"
 							className={classes.navLinks}
 							activeStyle={{
-								color: "#267AFE",
-								fontWeight: 700,
+								color: "white",
+								fontWeight: 900,
 							}}
 						>
 							Saved
@@ -51,8 +52,8 @@ const Navigation = () => {
 						to="/"
 						className={classes.navLinks}
 						activeStyle={{
-							color: "#267AFE",
-							fontWeight: 700,
+							color: "white",
+							fontWeight: 900,
 						}}
 						exact
 					>
