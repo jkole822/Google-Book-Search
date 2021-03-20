@@ -29,6 +29,7 @@ Search for books using the Google Books API. Users can search for books on the '
 - React Hooks
 - Node
 - Express
+- Socket IO
 - MongoDB
 - Mongoose
 - Google Books API
