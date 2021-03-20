@@ -4,8 +4,9 @@ import Box from "@material-ui/core/Box";
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles, useTheme } from "@material-ui/core/styles";
 import { indigo } from "@material-ui/core/colors";
+import useMediaQuery from "@material-ui/core/useMediaQuery";
 
 import axios from "axios";
 
@@ -32,6 +33,16 @@ const useStyles = makeStyles({
 	authors: {
 		marginBottom: 20,
 	},
+	buttonContainerSmall: {
+		display: "flex",
+		justifyContent: "center",
+		marginTop: "20px",
+		marginBottom: "20px",
+	},
+	buttonContainerMed: {
+		display: "flex",
+		justifyContent: "flex-end",
+	},
 });
 
 const Result = ({
@@ -41,6 +52,8 @@ const Result = ({
 	link,
 	handleDelete,
 }) => {
+	const theme = useTheme();
+	const matches = useMediaQuery(theme.breakpoints.down("xs"));
 	const classes = useStyles();
 
 	const location = useLocation();
@@ -98,13 +111,24 @@ const Result = ({
 
 	return (
 		<Box className={classes.resultBox} p={5} mb={5}>
-			<Grid container justify="space-between" className={classes.title}>
-				<Grid item>
-					<Typography variant="h6" component="h4">
+			<Grid container className={classes.title}>
+				<Grid xs={12} sm={8} item>
+					<Typography
+						variant="h6"
+						component="h4"
+						align={matches ? "center" : "left"}
+					>
 						{title}
 					</Typography>
 				</Grid>
-				<Grid item>
+				<Grid
+					item
+					xs={12}
+					sm={4}
+					className={
+						matches ? classes.buttonContainerSmall : classes.buttonContainerMed
+					}
+				>
 					<Button
 						className={classes.viewButton}
 						variant="contained"
@@ -138,11 +162,16 @@ const Result = ({
 				variant="subtitle2"
 				component="h5"
 				className={classes.subtitle}
+				align={matches ? "center" : "left"}
 			>
 				{subtitle}
 			</Typography>
 			{authors ? (
-				<Typography variant="body2" className={classes.authors}>
+				<Typography
+					variant="body2"
+					className={classes.authors}
+					align={matches ? "center" : "left"}
+				>
 					Written by {renderAuthors(authors)}
 				</Typography>
 			) : null}

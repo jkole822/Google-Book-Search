@@ -3,8 +3,9 @@ import axios from "axios";
 import Container from "@material-ui/core/Container";
 import Box from "@material-ui/core/Box";
 import Typography from "@material-ui/core/Typography";
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles, useTheme } from "@material-ui/core/styles";
 import { indigo } from "@material-ui/core/colors";
+import useMediaQuery from "@material-ui/core/useMediaQuery";
 
 import Result from "./Result";
 
@@ -25,6 +26,8 @@ const Saved = () => {
 		fetchSavedBooks();
 	}, []);
 
+	const theme = useTheme();
+	const matches = useMediaQuery(theme.breakpoints.down("sm"));
 	const classes = useStyles();
 
 	const fetchSavedBooks = async () => {
@@ -58,7 +61,7 @@ const Saved = () => {
 
 	return (
 		<Container>
-			<Box my={5} p={5} className={classes.container}>
+			<Box my={5} p={matches ? 0 : 5} className={classes.container}>
 				<Typography
 					variant="h5"
 					component="h3"

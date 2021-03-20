@@ -4,8 +4,9 @@ import Container from "@material-ui/core/Container";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles, useTheme } from "@material-ui/core/styles";
 import { indigo } from "@material-ui/core/colors";
+import useMediaQuery from "@material-ui/core/useMediaQuery";
 import axios from "axios";
 
 import Result from "./Result";
@@ -36,6 +37,8 @@ const Saved = () => {
 	const [terms, setTerms] = useState("");
 	const [results, setResults] = useState([]);
 
+	const theme = useTheme();
+	const matches = useMediaQuery(theme.breakpoints.down("sm"));
 	const classes = useStyles();
 
 	const performQuery = async () => {
@@ -99,7 +102,7 @@ const Saved = () => {
 				<Box className={classes.clearBox}></Box>
 			</Box>
 			{Object.keys(results).length ? (
-				<Box my={5} p={5} className={classes.resultBox}>
+				<Box my={5} p={matches ? 0 : 5} className={classes.resultBox}>
 					<Typography
 						variant="h5"
 						component="h3"
