@@ -25,6 +25,9 @@ const Saved = () => {
 
 	useEffect(() => {
 		fetchSavedBooks();
+		socket.on('updateSaved', () => {
+			fetchSavedBooks();
+		})
 	}, []);
 
 	const theme = useTheme();

@@ -35,9 +35,11 @@ io.on("connection", socket => {
 	console.log("New client connected");
 	socket.on("save", title => {
 		io.emit("saveMessage", title);
+		io.emit('updateSaved')
 	});
 	socket.on("delete", title => {
 		io.emit("deleteMessage", title);
+		io.emit('updateSaved')
 	});
 	socket.on("disconnect", () => {
 		console.log("Client disconnected");
