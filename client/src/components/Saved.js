@@ -8,6 +8,7 @@ import { indigo } from "@material-ui/core/colors";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 
 import Result from "./Result";
+import socket from "../utils/socket";
 
 const useStyles = makeStyles({
 	savedHeader: {
@@ -36,9 +37,10 @@ const Saved = () => {
 		setBooks(fetchedBooks.data);
 	};
 
-	const handleDelete = async id => {
+	const handleDelete = async (id, title) => {
 		await axios.delete(`/api/books/${id}`);
 		fetchSavedBooks();
+		socket.emit("delete", title);
 	};
 
 	const renderResults = () => {

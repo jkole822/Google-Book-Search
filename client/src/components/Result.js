@@ -7,8 +7,9 @@ import Button from "@material-ui/core/Button";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import { indigo } from "@material-ui/core/colors";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
-
 import axios from "axios";
+
+import socket from "../utils/socket";
 
 const useStyles = makeStyles({
 	viewButton: {
@@ -67,6 +68,8 @@ const Result = ({
 			image,
 			link,
 		});
+
+		socket.emit("save", title);
 	};
 
 	const renderAuthors = authors => {
@@ -151,7 +154,7 @@ const Result = ({
 							className={classes.saveButton}
 							variant="contained"
 							color="primary"
-							onClick={() => handleDelete(id)}
+							onClick={() => handleDelete(id, title)}
 						>
 							Delete
 						</Button>
